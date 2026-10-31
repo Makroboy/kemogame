@@ -6,7 +6,7 @@ The original game JAR runs unchanged inside a patched FreeJ2ME web runtime with 
 
 ## Play
 
-After GitHub Pages is enabled for this repository, the site is served at `https://makroboy.github.io/kemogame/`.
+[Play KemoGame](https://makroboy.github.io/kemogame/)
 
 Click **Start game** and allow a moment for loading. When **Game ready** appears, click **Menu**, select **New game**, confirm with **Enter / OK**, choose a character and confirm again.
 
