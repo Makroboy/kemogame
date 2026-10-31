@@ -1,0 +1,1 @@
+export const toneLabels={"3699414596": "selectchar.ott", "616600940": "teemu.ott", "4250082583": "kalle.ott", "3702875711": "marko.ott", "136842283": "laura.ott", "3040445956": "endofgame.ott", "482621571": "note.ott", "959031249": "damage.ott", "2462181517": "title.ott", "3708694711": "kari.ott", "3104284785": "gameover.ott"};

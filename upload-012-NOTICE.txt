@@ -1,0 +1,4 @@
+KemoGame v1.0.1. Copyright 2002 Sumea. Music by Kemopetrol. Ring Tone Conversion by HMM Software.
+Nokia photograph used with permission confirmed by the user, 31 October 2026.
+Patched FreeJ2ME web runtime: GPLv3-or-later with additional upstream component licenses. Source and notices: https://github.com/Makroboy/kemogame/tree/main/source
+CheerpJ is downloaded from its vendor and is not bundled.
