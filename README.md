@@ -8,10 +8,10 @@ The original game JAR runs unchanged inside a patched FreeJ2ME web runtime with 
 
 [Play KemoGame](https://makroboy.github.io/kemogame/)
 
-Click **Start game** and allow a moment for loading. When **Game ready** appears, click **Menu**, select **New game**, confirm with **Enter / OK**, choose a character and confirm again.
+Click **Start game** and allow a moment for loading. When **Game ready** appears, click **Options**, select **New game**, confirm with **Enter / OK**, choose a character and confirm again.
 
-- Computers: left/right arrows to move, up or Space to jump, Enter to confirm, M for Menu, Backspace for Back.
-- Phones and tablets: on-screen arrows, Jump, OK, Menu and Back; hold a direction and jump with a second finger. Play in portrait orientation.
+- Computers: left/right arrows to move, up or Space to jump, Enter to confirm, O for Options, Backspace for Back.
+- Phones and tablets: on-screen arrows, Jump, OK, Options and Back; hold a direction and jump with a second finger. Play in portrait orientation.
 - **Full screen** hides the phone frame and enlarges the game. The original screen proportions are preserved.
 
 An internet connection is required for the external CheerpJ runtime. No Java installation is needed.

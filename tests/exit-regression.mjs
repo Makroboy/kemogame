@@ -37,6 +37,12 @@ function loadPage() {
   return {frames: () => frames, start: () => elements.get('#start').onclick(), screenStart: () => elements.get('#screen-start').click()};
 }
 
+const controlsContext = vm.createContext({});
+vm.runInContext(read('site/controls.js').replace('export function', 'function'), controlsContext);
+assert.equal(vm.runInContext("gameKey('KeyO')", controlsContext), 'F1');
+assert.equal(vm.runInContext("gameKey('KeyM')", controlsContext), null);
+assert.equal(vm.runInContext("gameKey('Backspace')", controlsContext), 'F2');
+
 let page = loadPage();
 assert.equal(page.frames(), 0, 'Initial page must wait for Start');
 page.screenStart();

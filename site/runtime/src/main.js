@@ -326,7 +326,7 @@ async function init() {
 
     document.getElementById("loading").textContent = "Loading...";
 
-    const lib = await cheerpjRunLibrary(cheerpjWebRoot+"/freej2me-web-audio-v4-back-v1.jar");
+    const lib = await cheerpjRunLibrary(cheerpjWebRoot+"/freej2me-web-audio-v4-back-v2.jar");
 
     const FreeJ2ME = await lib.org.recompile.freej2me.FreeJ2ME;
 

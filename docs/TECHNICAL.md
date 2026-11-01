@@ -8,7 +8,7 @@ This edition runs the original KemoGame 1.0.1 J2ME program in a browser. The gam
 2. Open a terminal in that folder and run `python3 serve.py`.
 3. Open http://localhost:8765 in a modern browser.
 4. Click **Start game**. The initial launch downloads the CheerpJ runtime and can take a moment.
-5. Once the title screen appears, press **M** or **Menu** to open **Options**. Select **New game**, confirm with **5**, choose a character with **4 / 6**, then press **5** to play.
+5. Once the title screen appears, press **O** or **Options** to open **Options**. Select **New game**, confirm with **5**, choose a character with **4 / 6**, then press **5** to play.
 
 On macOS, `Kaynnista.command` provides the same startup using Python 3. If macOS does not allow opening the command file, use the terminal instructions above. Keep the terminal running while playing. Stop the server with Ctrl+C. Files must be served over HTTP; opening index.html directly is insufficient.
 
@@ -21,7 +21,7 @@ Python 3 and an internet connection are required for this bundled launcher. A Ja
 | Run left / right | Left / Right arrows or 4 / 6 | Hold 4 / 6 |
 | Jump | Up, Space or original keys 1 / 2 / 3 | 1 / 2 / 3 |
 | Start / confirm | Enter or 5 | 5 OK |
-| Left soft key / Options | M | Menu |
+| Left soft key / Options | O | Options |
 | Right soft key / Back | Backspace | Back |
 | Navigate down | Down or 8 | 8 |
 | Emulator settings | Esc | Keyboard only |
@@ -84,9 +84,9 @@ CheerpJ is a proprietary external runtime loaded from its vendor. See https://ch
 
 The History button opens an English account based on Marko’s recollection of Mobile Kemopetrol, Hewlett-Packard’s Mobile E-Services Bazaar, Sumea’s game, and recovery of the files from the Nokia handset. It includes the supplied Google Drive links to the original archive and the Joystick appearance on Yle TV1 on 25 October 2002. How to play opens separately. Both dialogs support the close button, Escape and clicking outside the panel.
 
-Alternative keyboard controls use one shared mapping whether the page or game canvas has focus. Menu and Back buttons send the original soft keys; their action follows the label in the game. Holding two alternative keys for the same action keeps the action held until both are released. Standard Command, Control and Alt shortcuts are left to the browser.
+Alternative keyboard controls use one shared mapping whether the page or game canvas has focus. Options and Back buttons send the original soft keys; their action follows the label in the game. Holding two alternative keys for the same action keeps the action held until both are released. Standard Command, Control and Alt shortcuts are left to the browser.
 
-The default on-screen controls show movement, Jump, OK, Menu and Back. The original numeric phone keypad is available under Original keypad and is hidden in fullscreen mode. Physical numeric keys continue to work at all times.
+The default on-screen controls show movement, Jump, OK, Options and Back. The original numeric phone keypad is available under Original keypad and is hidden in fullscreen mode. Physical numeric keys continue to work at all times.
 
 The How to play dialog is device-neutral: keyboard and mouse controls for Windows PCs, Macs and other computers, and touch controls for phones and tablets, including iPad, iPhone and Android. These instructions describe the intended controls, not a claim that every listed physical device has been tested. Browser fullscreen availability depends on the device; the viewport-filling fallback remains available.
 
@@ -104,7 +104,7 @@ Menu fix verification: white menu background checked from the title screen, char
 
 ## Original progression and sound behavior
 
-The single-level claim has been removed. Each band member has a character-specific level. In the original e.class state machine, collecting the last note marks that character completed and plays the corresponding laura.ott, marko.ott, kalle.ott, kari.ott or teemu.ott once. The level-clear state waits about 20 seconds of game time, or skips its timer when key 5 is pressed (Enter / OK in the browser). Character selection uses left/right and 5. Already completed characters display Level clear.
+The single-level claim has been removed. Each band member has a character-specific level. In the original e.class state machine, collecting the last note marks that character completed and plays the corresponding laura.ott, marko.ott, kalle.ott, kari.ott or teemu.ott once. The level-clear state waits about 20 seconds of game time, or skips its timer when key 5 is pressed (Enter / OK in the browser). Character selection uses left/right and 5. Already completed characters display Level clear!.
 
 Original d.class audio calls: title.ott plays from the title screen with a requested repeat count of 20; note.ott plays once for an ordinary collected note; damage.ott once on damage; character-specific OTT once when the final note completes that level; gameover.ott once when entering game-over state; endofgame.ott once when entering the all-completed ending. selectchar.ott is loaded but has no playback call in d.class. No continuous gameplay music call is present. These are code-inspection findings, not an assertion that all sounds have been audited on physical hardware.
 
@@ -112,7 +112,7 @@ Original d.class audio calls: title.ott plays from the title screen with a reque
 
 The game still runs its original d.class audio controller unchanged. Its title, note, damage, character-completion, game-over and all-completed calls determine playback. The Sound adapter now stops the previous Nokia Sound before starting the next one and starts each play request from the beginning. A corrected JS bridge keeps the MIDI bytes per logical player while sharing one physical synthesizer. It reloads the correct sequence on every start, delivers completion only to that sound, and prevents a stale stop request from stopping a newer sound. Gain is silenced immediately on stop so synthesizer tails cannot linger after Sound: off. The worklet seek call also now passes the required player pointer.
 
-Start game creates and resumes the audio context within the actual user gesture. This allows the title tune to start when loading completes instead of waiting for a later Menu press. Browsers may suspend audio again when backgrounded; game controls request resume.
+Start game creates and resumes the audio context within the actual user gesture. This allows the title tune to start when loading completes instead of waiting for a later Options press. Browsers may suspend audio again when backgrounded; game controls request resume.
 
 Automated validation passed: all 11 original OTT payloads select exactly their corresponding decoded MIDI data; title play(20) starts exactly 20 times using the runtime's real BasePlayer; one-shot effects do not loop; changing sounds stops the previous player; stopped title playback does not restart; MIDI note/damage/note sequence switches back correctly; stale stops and simultaneous starts are handled. MIDI bridge regression: node source/tests/check-midi.mjs.
 

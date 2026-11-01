@@ -211,7 +211,7 @@ public abstract class Displayable
 
 			currentY += contentHeight;
 
-			gc.drawString("Okay", xPadding, currentY+titlePadding, Graphics.LEFT);
+			gc.drawString("OK", xPadding, currentY+titlePadding, Graphics.LEFT);
 			gc.drawString("Back", width-xPadding, currentY+titlePadding, Graphics.RIGHT);
 		}
 		else
