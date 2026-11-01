@@ -172,7 +172,7 @@ public abstract class Canvas extends Displayable
 		} else {
 			if (key == Mobile.NOKIA_SOFT1 && commands.size()>0) {
 				doLeftCommand();
-			} else if (key == Mobile.NOKIA_SOFT2 && commands.size()>1) {
+			} else if (key == Mobile.NOKIA_SOFT2 && commands.size()>0) {
 				doRightCommand();
 			} else {
 				keyPressed(keyEvent.platformCode);

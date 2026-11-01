@@ -332,6 +332,17 @@ public abstract class Displayable
 
 	protected void doRightCommand()
 	{
+		// The browser Back button is semantic: a Back command may be
+		// the sole command (drawn on the left), or appear in either slot.
+		for (int i = 0; i < commands.size(); i++) {
+			Command command = commands.get(i);
+			if (command.getCommandType() == Command.BACK ||
+				command.getCommandType() == Command.CANCEL ||
+				"Back".equalsIgnoreCase(command.getLabel())) {
+				doCommand(i);
+				return;
+			}
+		}
 		if(commands.size()>0 && commands.size()<=2)
 		{
 			doCommand(1);

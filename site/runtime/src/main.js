@@ -308,7 +308,8 @@ async function init() {
                 location.reload();
             },
             async Java_pl_zb3_freej2me_bridge_shell_Shell_exit(lib) {
-                location.href = './';
+                // Reload the host page so the game waits for Start again.
+                window.parent.location.reload();
             },
             async Java_pl_zb3_freej2me_bridge_shell_Shell_sthop(lib) {
                 debugger;
@@ -325,7 +326,7 @@ async function init() {
 
     document.getElementById("loading").textContent = "Loading...";
 
-    const lib = await cheerpjRunLibrary(cheerpjWebRoot+"/freej2me-web-audio-v4.jar");
+    const lib = await cheerpjRunLibrary(cheerpjWebRoot+"/freej2me-web-audio-v4-back-v1.jar");
 
     const FreeJ2ME = await lib.org.recompile.freej2me.FreeJ2ME;
 

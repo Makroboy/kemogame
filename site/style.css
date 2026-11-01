@@ -43,3 +43,11 @@ body.fullscreen #phone #screen{left:calc((100vw - 250px)/2);top:50%;transform:tr
 body.fullscreen .quick-actions{display:flex}body.fullscreen .control-panel{transform:translateY(-40%)}@media(max-width:680px){body.fullscreen .control-panel{transform:translateX(50%)}body.fullscreen #phone #screen,body.fullscreen #phone:not(.photo) #screen{width:min(100vw,calc((100svh - 265px)*176/208))}}@media(pointer:coarse){body.fullscreen .control-panel{transform:translateX(50%)}body.fullscreen #phone #screen,body.fullscreen #phone:not(.photo) #screen{width:min(100vw,calc((100svh - 305px)*176/208))}}
 
 .game-notice{width:min(100%,980px);margin:12px auto 0;padding:10px 14px;border-radius:10px;background:#202b32;color:#b8c8cc;display:flex;align-items:center;justify-content:space-between;gap:14px}.game-notice #status{font-size:12px;line-height:1.5;margin:0;color:inherit}.game-notice.ready{background:#b7e6d4;color:#15392d;border:1px solid #d1f7e7}.game-notice.ready #status{font-size:15px;font-weight:650}.game-notice #ready-menu{background:#15392d;color:#edfff6;border:0;padding:11px 22px;font-size:14px;font-weight:650;min-height:44px}.game-notice[hidden],#ready-menu[hidden]{display:none}body.fullscreen .game-notice{display:none}@media(max-width:680px){.game-notice{margin-top:10px;padding:12px}.game-notice.ready #status{font-size:14px}.game-notice #ready-menu{padding:10px 18px}}
+
+/* Make the idle phone screen an obvious, accessible starting point. */
+#placeholder{padding:8px;text-align:center;gap:10px;font:12px/1.4 system-ui,sans-serif}
+#placeholder strong{font-size:16px;color:#edfff6}
+#placeholder #screen-start{display:block;margin:0;background:#b7e6d4;color:#142b25;border:2px solid #edfff6;border-radius:6px;font-size:13px;font-weight:750;line-height:1.2;padding:10px 8px;min-height:44px;touch-action:manipulation}
+#placeholder #screen-start:hover{background:#d1f7e7}
+#placeholder #screen-start:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#placeholder small{font-size:10px;margin:0;color:#d3e9e2}
