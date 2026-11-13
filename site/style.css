@@ -75,3 +75,13 @@ body.fullscreen .quick-actions{display:flex}body.fullscreen .control-panel{trans
     box-shadow: 0 3px 16px #0006;
   }
 }
+
+/* Browser controls only: a gentle cue without moving or resizing any content. */
+@keyframes control-cue-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px #b7e6d4; background-color: #27343c; }
+  50% { box-shadow: 0 0 0 4px #b7e6d488; background-color: #42675c; }
+}
+[data-key].control-cue { outline: 2px solid #b7e6d4; outline-offset: 2px; animation: control-cue-pulse 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  [data-key].control-cue { animation: none; background-color: #42675c; }
+}

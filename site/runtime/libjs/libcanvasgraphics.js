@@ -1,3 +1,4 @@
+import {observeGameText} from './kemo-game-cues.js';
 function instrument(nob) {
   const newobj = {};
 
@@ -422,6 +423,7 @@ const CanvasGraphics = ({
 
   async Java_pl_zb3_freej2me_bridge_graphics_CanvasGraphics_drawText(lib, ctx, text, x, y) {
     ctx.fillText(text, x, y);
+    observeGameText(text);
   },
 
   async Java_pl_zb3_freej2me_bridge_graphics_CanvasGraphics_drawImage2(lib, ctx, source, sx, sy, dx, dy, width, height, flipY, withAlpha) {

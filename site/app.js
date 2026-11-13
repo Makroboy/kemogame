@@ -1,7 +1,22 @@
 import {gameKey} from './controls.js';
 const screen=document.querySelector('#screen');
-window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==frame?.contentWindow)return;if(e.data==='kemo-ready'){document.querySelector('#status').textContent='Ready. Choose New game in Options.';document.querySelector('#game-notice').classList.add('ready');document.querySelector('#ready-menu').hidden=false;}if(e.data==='kemo-menu'&&document.querySelector('#game-notice').classList.contains('ready')){document.querySelector('#game-notice').hidden=true;document.querySelector('#ready-menu').hidden=true;}if(e.data==='kemo-error')document.querySelector('#status').textContent='Loading failed. Check your connection and reload the page.';});let frame;const active=new Map();
-function send(code,down){const c=frame?.contentDocument?.querySelector('canvas');if(!c)return;if(down&&gameKey(code)==='F1'&&document.querySelector('#game-notice').classList.contains('ready')){document.querySelector('#game-notice').hidden=true;document.querySelector('#ready-menu').hidden=true;}frame.contentWindow.libmidi?.context?.resume();c.dispatchEvent(new KeyboardEvent(down?'keydown':'keyup',{code,key:code.startsWith('Digit')?code.slice(5):code,bubbles:true,cancelable:true}));}
+let controlCue=null;
+function showControlCue(cue){
+ controlCue=cue;
+ document.querySelectorAll('[data-key]').forEach(button=>{
+  const highlighted=(cue==='options'&&button.dataset.key==='F1')||
+   (cue==='confirm'&&button.dataset.key==='Digit5');
+  button.classList.toggle('control-cue',highlighted);
+ });
+}
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==frame?.contentWindow)return;if(e.data&&Object.hasOwn(e.data,'kemoControlCue')){
+ const cue=e.data.kemoControlCue;
+ if(cue==='options'||cue==='confirm')showControlCue(cue);
+ else if(cue===null&&controlCue==='confirm')showControlCue(null);
+}
+if(e.data==='kemo-menu')showControlCue(null);
+if(e.data==='kemo-ready'){document.querySelector('#status').textContent='Ready. Choose New game in Options.';document.querySelector('#game-notice').classList.add('ready');document.querySelector('#ready-menu').hidden=false;}if(e.data==='kemo-menu'&&document.querySelector('#game-notice').classList.contains('ready')){document.querySelector('#game-notice').hidden=true;document.querySelector('#ready-menu').hidden=true;}if(e.data==='kemo-error')document.querySelector('#status').textContent='Loading failed. Check your connection and reload the page.';});let frame;const active=new Map();
+function send(code,down){const c=frame?.contentDocument?.querySelector('canvas');if(!c)return;if(down&&((controlCue==='options'&&gameKey(code)==='F1')||(controlCue==='confirm'&&gameKey(code)==='Digit5')||gameKey(code)==='F2'))showControlCue(null);if(down&&gameKey(code)==='F1'&&document.querySelector('#game-notice').classList.contains('ready')){document.querySelector('#game-notice').hidden=true;document.querySelector('#ready-menu').hidden=true;}frame.contentWindow.libmidi?.context?.resume();c.dispatchEvent(new KeyboardEvent(down?'keydown':'keyup',{code,key:code.startsWith('Digit')?code.slice(5):code,bubbles:true,cancelable:true}));}
 function releaseAll(){
  const keys=new Set([...active.values(),...held.values()]);active.clear();held.clear();
  for(const code of keys)send(code,false);
