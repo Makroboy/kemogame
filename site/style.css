@@ -51,3 +51,27 @@ body.fullscreen .quick-actions{display:flex}body.fullscreen .control-panel{trans
 #placeholder #screen-start:hover{background:#d1f7e7}
 #placeholder #screen-start:focus-visible{outline:3px solid #fff;outline-offset:3px}
 #placeholder small{font-size:10px;margin:0;color:#d3e9e2}
+
+/* A scroll cue only; never resize the phone or game. */
+#controls-scroll-hint { display: none; }
+@media (max-width: 680px) and (pointer: coarse) {
+  body:not(.fullscreen) #controls-scroll-hint:not([hidden]) {
+    display: block;
+    position: fixed;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    max-width: calc(100vw - 24px);
+    padding: 10px 16px;
+    border: 1px solid #d1f7e7;
+    border-radius: 24px;
+    background: #b7e6d4;
+    color: #142b25;
+    font-size: 13px;
+    font-weight: 650;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 3px 16px #0006;
+  }
+}
