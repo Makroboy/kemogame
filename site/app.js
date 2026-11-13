@@ -41,6 +41,7 @@ if(new URLSearchParams(location.search).has('audioDebug')){
 {
  const mobile=matchMedia('(max-width: 680px) and (pointer: coarse)');
  const controls=document.querySelector('.modern-controls');
+ const arrowRow=controls.querySelector('[data-key="Digit8"]');
  const hint=document.createElement('a');
  hint.id='controls-scroll-hint';hint.href='#touch-game-controls';
  hint.textContent='Controls below ↓ Scroll down';hint.hidden=true;
@@ -52,16 +53,14 @@ if(new URLSearchParams(location.search).has('audioDebug')){
   const bottom=(viewport?.offsetTop||0)+(viewport?.height||innerHeight);
   hint.hidden=!(mobile.matches&&!document.body.classList.contains('fullscreen')&&
    !document.querySelector('dialog[open]')&&document.querySelector('#rotate').hidden&&
-   controls.getBoundingClientRect().top+24>bottom&&
-   screen.getBoundingClientRect().top>(viewport?.offsetTop||0)+8);
+   arrowRow.getBoundingClientRect().top+24>bottom);
  }
  function schedule(){if(!queued){queued=true;requestAnimationFrame(updateHint);}}
  hint.addEventListener('click',event=>{event.preventDefault();const viewport=window.visualViewport;
   const top=viewport?.offsetTop||0;
   const bottom=top+(viewport?.height||innerHeight);
-  const needed=Math.max(0,controls.getBoundingClientRect().top+44-bottom);
-  const safe=Math.max(0,screen.getBoundingClientRect().top-top-8);
-  window.scrollBy({top:Math.min(needed,safe),behavior:'smooth'});});
+  const needed=Math.max(0,arrowRow.getBoundingClientRect().bottom+8-bottom);
+  window.scrollBy({top:needed,behavior:'smooth'});});
  window.addEventListener('scroll',schedule,{passive:true});
  window.addEventListener('resize',schedule);
  window.visualViewport?.addEventListener('resize',schedule);
