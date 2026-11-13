@@ -1,6 +1,6 @@
 import {gameKey} from './controls.js';
 const screen=document.querySelector('#screen');
-window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==frame?.contentWindow)return;if(e.data==='kemo-ready'){document.querySelector('#status').textContent='Game ready. Click or tap Options, or press O, then select New game.';document.querySelector('#game-notice').classList.add('ready');document.querySelector('#ready-menu').hidden=false;}if(e.data==='kemo-menu'&&document.querySelector('#game-notice').classList.contains('ready')){document.querySelector('#game-notice').hidden=true;document.querySelector('#ready-menu').hidden=true;}if(e.data==='kemo-error')document.querySelector('#status').textContent='Loading failed. Check your connection and reload the page.';});let frame;const active=new Map();
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==frame?.contentWindow)return;if(e.data==='kemo-ready'){document.querySelector('#status').textContent='Ready. Choose New game in Options.';document.querySelector('#game-notice').classList.add('ready');document.querySelector('#ready-menu').hidden=false;}if(e.data==='kemo-menu'&&document.querySelector('#game-notice').classList.contains('ready')){document.querySelector('#game-notice').hidden=true;document.querySelector('#ready-menu').hidden=true;}if(e.data==='kemo-error')document.querySelector('#status').textContent='Loading failed. Check your connection and reload the page.';});let frame;const active=new Map();
 function send(code,down){const c=frame?.contentDocument?.querySelector('canvas');if(!c)return;if(down&&gameKey(code)==='F1'&&document.querySelector('#game-notice').classList.contains('ready')){document.querySelector('#game-notice').hidden=true;document.querySelector('#ready-menu').hidden=true;}frame.contentWindow.libmidi?.context?.resume();c.dispatchEvent(new KeyboardEvent(down?'keydown':'keyup',{code,key:code.startsWith('Digit')?code.slice(5):code,bubbles:true,cancelable:true}));}
 function releaseAll(){
  const keys=new Set([...active.values(),...held.values()]);active.clear();held.clear();
@@ -52,10 +52,16 @@ if(new URLSearchParams(location.search).has('audioDebug')){
   const bottom=(viewport?.offsetTop||0)+(viewport?.height||innerHeight);
   hint.hidden=!(mobile.matches&&!document.body.classList.contains('fullscreen')&&
    !document.querySelector('dialog[open]')&&document.querySelector('#rotate').hidden&&
-   controls.getBoundingClientRect().bottom>bottom+2);
+   controls.getBoundingClientRect().top+24>bottom&&
+   screen.getBoundingClientRect().top>(viewport?.offsetTop||0)+8);
  }
  function schedule(){if(!queued){queued=true;requestAnimationFrame(updateHint);}}
- hint.addEventListener('click',event=>{event.preventDefault();controls.scrollIntoView({block:'center',behavior:'smooth'});});
+ hint.addEventListener('click',event=>{event.preventDefault();const viewport=window.visualViewport;
+  const top=viewport?.offsetTop||0;
+  const bottom=top+(viewport?.height||innerHeight);
+  const needed=Math.max(0,controls.getBoundingClientRect().top+44-bottom);
+  const safe=Math.max(0,screen.getBoundingClientRect().top-top-8);
+  window.scrollBy({top:Math.min(needed,safe),behavior:'smooth'});});
  window.addEventListener('scroll',schedule,{passive:true});
  window.addEventListener('resize',schedule);
  window.visualViewport?.addEventListener('resize',schedule);
