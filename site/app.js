@@ -36,3 +36,33 @@ if(new URLSearchParams(location.search).has('audioDebug')){
  const log=document.createElement('pre');log.id='audio-audit';log.style.cssText='white-space:pre-wrap;font:11px monospace;background:#172e25;color:#d8ffeb;padding:12px;max-height:230px;overflow:auto';document.querySelector('header').after(log);
  window.addEventListener('message',event=>{if(event.origin===location.origin&&event.source===frame?.contentWindow&&event.data?.kemoAudio){log.textContent+=JSON.stringify(event.data.kemoAudio)+'\n';log.scrollTop=log.scrollHeight;}});
 }
+
+// Indicate off-screen touch controls without changing the game layout.
+{
+ const mobile=matchMedia('(max-width: 680px) and (pointer: coarse)');
+ const controls=document.querySelector('.modern-controls');
+ const hint=document.createElement('a');
+ hint.id='controls-scroll-hint';hint.href='#touch-game-controls';
+ hint.textContent='Controls below ↓ Scroll down';hint.hidden=true;
+ controls.id='touch-game-controls';document.body.append(hint);
+ let queued=false;
+ function updateHint(){
+  queued=false;
+  const viewport=window.visualViewport;
+  const bottom=(viewport?.offsetTop||0)+(viewport?.height||innerHeight);
+  hint.hidden=!(mobile.matches&&!document.body.classList.contains('fullscreen')&&
+   !document.querySelector('dialog[open]')&&document.querySelector('#rotate').hidden&&
+   controls.getBoundingClientRect().bottom>bottom+2);
+ }
+ function schedule(){if(!queued){queued=true;requestAnimationFrame(updateHint);}}
+ hint.addEventListener('click',event=>{event.preventDefault();controls.scrollIntoView({block:'center',behavior:'smooth'});});
+ window.addEventListener('scroll',schedule,{passive:true});
+ window.addEventListener('resize',schedule);
+ window.visualViewport?.addEventListener('resize',schedule);
+ window.visualViewport?.addEventListener('scroll',schedule);
+ mobile.addEventListener('change',schedule);
+ new ResizeObserver(schedule).observe(document.querySelector('main'));
+ new MutationObserver(schedule).observe(document.body,{attributes:true,attributeFilter:['class']});
+ for(const dialog of document.querySelectorAll('dialog'))new MutationObserver(schedule).observe(dialog,{attributes:true,attributeFilter:['open']});
+ schedule();
+}
